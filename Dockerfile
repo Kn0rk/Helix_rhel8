@@ -8,7 +8,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /build
-RUN git clone https://github.com/helix-editor/helix
+RUN git clone --depth 1 --branch 25.07.1 https://github.com/helix-editor/helix
 WORKDIR /build/helix
 RUN cargo install --path helix-term --locked
 
