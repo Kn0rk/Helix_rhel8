@@ -10,6 +10,6 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 WORKDIR /build
 RUN git clone --depth 1 --branch 25.07.1 https://github.com/helix-editor/helix
 WORKDIR /build/helix
-RUN cargo install --path helix-term --locked
+RUN cargo install --profile opt --config 'build.rustflags=["-C", "target-cpu=native"]'  --path helix-term --locked
 
 # Binary will be in /root/.cargo/bin/hx

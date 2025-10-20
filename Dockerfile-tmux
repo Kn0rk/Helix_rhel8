@@ -1,0 +1,27 @@
+FROM rockylinux/rockylinux:8
+
+
+
+RUN dnf install -y \
+        gcc \
+        make \
+        automake \
+        autoconf \
+        libtool \
+        pkgconfig \
+        libevent \
+        libevent-devel \
+        ncurses \
+        ncurses-devel \
+        bison \
+        git \
+    && dnf clean all
+WORKDIR /build
+RUN git clone --depth 1 --branch 3.5 https://github.com/tmux/tmux.git
+WORKDIR /build/tmux
+RUN sh autogen.sh \
+    && ./configure --prefix=/usr/local \
+    && make -j"$(nproc)" \
+    && make install
+
+# Binary installed at /usr/local/bin/tmux
